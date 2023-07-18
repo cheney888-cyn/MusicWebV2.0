@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/10-brand.html" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/beautify/demo_1/index2.html" value="file://$PROJECT_DIR$/src/main/webapp/beautify/demo_1" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/beautify/demo_1/pages/samples/blank-page.html" value="file://$PROJECT_DIR$/src/main/webapp/beautify/demo_1/pages/samples" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/beautify/demo_1/pages/samples/login.html" value="file://$PROJECT_DIR$/src/main/webapp/beautify/demo_1/pages/samples" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/index2.html" value="file://$PROJECT_DIR$/src/main/webapp" />
+      </map>
+    </option>
+  </component>
+</project>

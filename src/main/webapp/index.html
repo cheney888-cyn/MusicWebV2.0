@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="app">
+
+    <!--表格-->
+    <template>
+        <el-table
+                :data="tableData"
+                stripe
+                style="width: 100%"
+        >
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    prop="id"
+                    label="序号"
+                    align="center"
+                    width="50"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="songName"
+                    label="歌曲名称"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="singer"
+                    label="歌手"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="fileURL"
+                    align="center"
+                    label="歌曲地址">
+            </el-table-column>
+            <el-table-column
+                    prop="hits"
+                    align="center"
+                    label="播放量">
+            </el-table-column>
+            <el-table-column
+                    prop="type"
+                    align="center"
+                    label="歌曲类型">
+            </el-table-column>
+            <el-table-column
+                    label="是否启用">
+                <template slot-scope="scope">
+                    <el-switch
+                            v-model="scope.row.status"
+                            :active-value="1"
+                            :inactive-value="2"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            @change="changeSwitch(scope.row)"/>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="操作"
+                    width="200">
+                <el-row>
+                    <el-button type="primary">修改</el-button>
+                    <el-button type="danger">删除</el-button>
+                </el-row>
+
+            </el-table-column>
+        </el-table>
+    </template>
+
+
+    <!--分页工具条-->
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="5"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="totalCount">
+    </el-pagination>
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script src="js/axios-0.18.0.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        mounted() {
+            //当页面加载完成后，发送异步请求，获取数据
+            var _this = this;
+            axios({
+                method: "get",
+                url: "http://localhost:8080/MusicWebV1_0_war/selectAllServlet"
+            }).then(function (resp) {
+                _this.tableData = resp.data;
+            })
+        },
+        methods:{
+            // 复选框选中后执行的方法
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+
+                // console.log(this.multipleSelection)
+            },
+            //分页
+            handleSizeChange(val) {
+                //console.log(`每页 ${val} 条`);
+                // 重新设置每页显示的条数
+                this.pageSize  = val;
+                this.selectAll();
+            },
+            handleCurrentChange(val) {
+                //console.log(`当前页: ${val}`);
+                // 重新设置当前页码
+                this.currentPage  = val;
+                this.selectAll();
+            },
+            //改变歌曲状态
+            changeStatus(){
+                console.log(this.song.status);
+            }
+
+        },
+        data(){
+            return {
+
+                // 每页显示的条数
+                pageSize:5,
+                // 总记录数
+                totalCount:100,
+                // 当前页码
+                currentPage: 1,
+                // 添加数据对话框是否展示的标记
+                dialogVisible: false,
+                //歌曲模型：
+                song:{
+                    id:'',
+                    songName:'',
+                    singer:'',
+                    fileURL:'',
+                    hits:'',
+                    type:'',
+                    status:''
+                },
+
+                tableData: [{
+                    /*实际使用应该要把下面的内容去掉*/
+                    id:'1',
+                    songName:'test',
+                    singer:'me',
+                    fileURL:'1.mp3',
+                    hits:'99',
+                    type:'10',
+                    status:'1'
+                }]
+            }
+        }
+
+
+
+    })
+</script>
+
+</body>
+</html>

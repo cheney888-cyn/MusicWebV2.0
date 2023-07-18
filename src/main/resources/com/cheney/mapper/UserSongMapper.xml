@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespqce 名称空间
+    id SQL语句的唯一标识符
+    SQL语句中特殊字符处理
+        转义字符（麻烦） CDATA区：输入即可CD
+-->
+<mapper namespace="com.cheney.mapper.UserSongMapper">
+    <insert id="addSongToUser">
+        insert into tb_userSong (userID,songID)
+        values (#{userID},#{songID});
+    </insert>
+
+    <select id="selectAllSongByUserId" resultType="com.cheney.pojo.Song">
+        select * from tb_song where id in (select songID from tb_userSong where tb_userSong.userID=#{userID});
+    </select>
+</mapper>

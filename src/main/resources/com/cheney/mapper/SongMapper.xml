@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespqce 名称空间
+    id SQL语句的唯一标识符
+    SQL语句中特殊字符处理
+        转义字符（麻烦） CDATA区：输入即可CD
+-->
+<mapper namespace="com.cheney.mapper.SongMapper">
+    <insert id="addSong">
+        insert into tb_song (songName,singer,fileURL,type,status)
+        values (#{songName},#{singer},#{fileURL},#{type},#{status});
+    </insert>
+    <update id="updateSongStatus">
+        update tb_song set status=#{status} where id=#{id};
+    </update>
+    <update id="updateSongHits">
+        update tb_song set hits=hits+1 where id=#{id};
+    </update>
+
+
+    <select id="selectSongById" resultType="com.cheney.pojo.Song">
+        select * from tb_song where id=#{song_id};
+    </select>
+    <!--动态条件查询-->
+    <select id="selectSongByCondition" resultType="com.cheney.pojo.Song">
+        select * from tb_song
+        <where>
+            <if test="songName != null">  and songName like #{songName}  </if>
+            <if test="singer != null and singer != '' ">  and singer like #{singer}  </if>
+            <if test="status != null and status != '' ">  and status like #{status}  </if>
+        </where>
+    </select>
+    <select id="selectSongByHits" resultType="com.cheney.pojo.Song">
+        select * from tb_song
+        <where>
+            <if test="hits != null and hits != ''">and hits like #{hits}</if>
+        </where>
+        ORDER BY hits DESC
+        LIMIT 10
+    </select>
+    <select id="selectSongByPageCondition" resultType="com.cheney.pojo.Song">
+        select a.id,a.songName,b.singerName as singer,a.fileURL,a.hits,a.type,a.status
+        from tb_song a,tb_singer b
+        <where>
+            a.singer=b.id
+            <if test="songName != null and songName != '' ">  and a.songName like #{songName}  </if>
+            <if test="singer != null and singer != '' ">  and a.singer like #{singer}  </if>
+            <if test="status != null and status != '' ">  and a.status like #{status}  </if>
+        </where>
+        order by a.id
+        limit #{start},#{rows}
+
+    </select>
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*)
+        from tb_song a,tb_singer b
+        <where>
+            a.singer=b.id
+            <if test="songName != null and songName != '' ">  and a.songName like #{songName}  </if>
+            <if test="singer != null and singer != '' ">  and a.singer like #{singer}  </if>
+            <if test="status != null and status != '' ">  and a.status like #{status}  </if>
+        </where>
+    </select>
+    <select id="selectSongByHitsFive" resultType="com.cheney.pojo.Song">
+        select a.id,a.songName,b.singerName as singer,a.fileURL,a.hits
+        from tb_song a,tb_singer b
+        where a.singer=b.id and a.status='1'
+        ORDER BY hits DESC
+        LIMIT 5
+    </select>
+    <select id="selectSongByType" resultType="java.lang.String">
+        select distinct type from tb_song;
+    </select>
+    <select id="selectSongByCollection" resultType="com.cheney.pojo.Song">
+        select distinct a.id,a.songName,b.singerName as singer,a.fileURL,a.hits,a.type,a.status
+        from tb_song a,tb_singer b, tb_userSong c
+        where a.singer=b.id and a.id=c.songID and c.userID=#{userID}
+    </select>
+
+    <delete id="deleteSongById">
+        delete from tb_song where id=#{song_id};
+    </delete>
+    <delete id="deleteSongByIds">
+        delete from tb_song where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

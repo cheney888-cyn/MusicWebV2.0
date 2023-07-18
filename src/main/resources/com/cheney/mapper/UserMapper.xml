@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespqce 名称空间
+    id SQL语句的唯一标识符
+-->
+<mapper namespace="com.cheney.mapper.UserMapper">
+    <select id="selectAllUser" resultType="com.cheney.pojo.User">
+        select * from tb_user;
+    </select>
+
+    <select id="checkUser" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tb_user WHERE manager = #{manager}
+    </select>
+    <select id="login" resultType="java.lang.String">
+        SELECT userFlag FROM tb_user WHERE manager = #{manager} AND pwd = #{pwd}
+    </select>
+
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_user (manager,pwd)
+        values (#{manager},#{pwd});
+    </insert>
+
+    <update id="updatePwd">
+        update tb_user
+        <set>
+            <if test="pwd != null">  pwd=#{pwd}  </if>
+        </set>
+        where id=#{id};
+    </update>
+
+</mapper>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>后台管理页</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/ionicons/css/ionicons.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/typicons/src/font/typicons.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../assets/css/shared/style.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png"/>
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html --><!--导航栏-->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+            <a class="navbar-brand brand-logo" href="index2.html">
+                <img src="../assets/images/logo.png" alt="logo"/> </a>
+
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+            <ul class="navbar-nav">
+                <li class="nav-item font-weight-semibold d-none d-lg-block">Help : +086 198 5039 2999</li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator" id="messageDropdown" href="#" data-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="mdi mdi-bell-outline"></i>
+                        <span class="count">1</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                         aria-labelledby="messageDropdown">
+                        <a class="dropdown-item py-3">
+                            <p class="mb-0 font-weight-medium float-left">You have 1 unread mails </p>
+                            <span class="badge badge-pill badge-primary float-right">View all</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown">
+                        <i class="mdi mdi-email-outline"></i>
+                        <span class="count bg-success">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                         aria-labelledby="notificationDropdown">
+                        <a class="dropdown-item py-3 border-bottom">
+                            <p class="mb-0 font-weight-medium float-left">You have 3 new notifications </p>
+                            <span class="badge badge-pill badge-primary float-right">View all</span>
+                        </a>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
+                       aria-expanded="false">
+                        <img class="img-xs rounded-circle" src="../assets/images/faces-clipart/pic-4.png" alt="Profile image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+                            <a class="dropdown-item">test09<i class="dropdown-item-icon ti-power-off"></i></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- partial 下方主要内容-->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html 侧边-->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+
+                <li class="nav-item nav-category"></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index2.html">
+                        <i class="menu-icon typcn typcn-document-text"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="menu-icon typcn typcn-document-add"></i>
+                        <span class="menu-title">User Pages</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="auth">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/samples/blank-page.html"> 用户首页 </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/samples/login.html"> 登陆页 </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages/samples/register.html"> 注册页 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- partial 主体-->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="app">
+                    <el-form :inline="true" :model="searchCondition" class="demo-form-inline">
+                        <el-form-item label="当前状态">
+                            <el-select v-model="searchCondition.searchStatus" placeholder="当前状态">
+                                <el-option label="启用" value="1"></el-option>
+                                <el-option label="禁用" value="2"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="歌手">
+                            <el-select v-model="searchCondition.searchSinger" placeholder="歌手">
+                                <el-option v-for="item in singers" :key="item.id" :label="item.singerName"
+                                           :value="item.id"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="歌曲名称">
+                            <el-input v-model="searchCondition.searchSongName" placeholder="歌曲名称"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="onSubmit">查询</el-button>
+                        </el-form-item>
+                    </el-form>
+                    <el-row>
+                        <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
+                        <el-button type="primary" plain @click="dialogVisible = true">新增</el-button>
+                    </el-row>
+                    <!--添加数据对话框表单-->
+                    <el-dialog
+                            title="新增歌曲"
+                            :visible.sync="dialogVisible"
+                            width="30%"
+                    >
+
+                        <el-form ref="form" :model="song" label-width="80px">
+                            <el-form-item label="歌曲名称">
+                                <el-input v-model="song.songName"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="歌手">
+                                <el-select v-model="song.singer" placeholder="歌手">
+                                    <el-option v-for="item in singers" :key="item.id" :label="item.singerName"
+                                               :value="item.id"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="歌曲类别">
+                                <el-input v-model="song.type"></el-input>
+                            </el-form-item>
+                            <el-form-item label="歌曲地址">
+                                <el-input type="textarea" v-model="song.fileURL"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="状态">
+                                <el-switch v-model="song.status"
+                                           active-value="1"
+                                           inactive-value="2"
+                                           active-color="#13ce66"
+                                           inactive-color="#e6e5e8"
+                                ></el-switch>
+                            </el-form-item>
+
+
+                            <el-form-item>
+                                <el-button type="primary" @click="addSong">提交</el-button>
+                                <el-button @click="dialogVisible = false">取消</el-button>
+                            </el-form-item>
+                        </el-form>
+
+                    </el-dialog>
+                    <div>&nbsp</div><!--表格-->
+                    <template>
+                        <el-table
+                                :data="tableData"
+                                stripe
+                                style="width: 100%"
+                                @selection-change="handleSelectionChange"
+                        >
+                            <el-table-column
+                                    type="selection"
+                                    width="55">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="id"
+                                    label="序号"
+                                    align="center"
+                                    width="50"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                                    prop="songName"
+                                    label="歌曲名称"
+                                    align="center"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                                    prop="singer"
+                                    label="歌手"
+                                    align="center"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                                    prop="fileURL"
+                                    align="center"
+                                    label="歌曲地址">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="hits"
+                                    align="center"
+                                    label="播放量">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="type"
+                                    align="center"
+                                    label="歌曲类型">
+                            </el-table-column>
+                            <el-table-column
+                                    label="是否启用">
+                                <template slot-scope="scope">
+                                    <el-switch
+                                            v-model="scope.row.status"
+                                            :active-value="1"
+                                            :inactive-value="0"
+                                            active-color="#13ce66"
+                                            inactive-color="#e6e5e8"
+                                            @change="changeSwitch(scope.$index,scope.row)"/>
+                                </template>
+                            </el-table-column>
+
+                            // 这串代码是table里边行列数据
+                            <el-table-column
+                                    align="center"
+                                    label="操作"
+                                    width="100">
+                                <!--<el-row>
+                                    <el-button type="primary" @click="deleteOne">修改</el-button>
+                                    <el-button type="danger" @click="deleteOne">删除</el-button>
+                                </el-row>-->
+                                <template slot-scope="scope">
+                                    <!-- 点击编辑进入编辑页面进行编辑表格数据 --><!--
+                                    <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
+                                    <el-button size="small" type="danger"
+                                               @click="handleDelete(scope.$index, scope.row)">删除
+                                    </el-button>
+                                </template>
+
+                            </el-table-column>
+                        </el-table>
+                    </template>
+                    <!--分页工具条-->
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[5, 10, 15, 20]"
+                            :page-size="5"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="totalCount">
+                    </el-pagination>
+
+                </div>
+                <!--数据总览-->
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html 底部 -->
+            <footer class="footer">
+                <div class="container-fluid clearfix">
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright &copy; 2019.Company name All rights reserved.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i
+                            class="mdi mdi-heart text-danger"></i>
+		  </span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+<script src="../assets/vendors/js/vendor.bundle.addons.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="../assets/js/shared/off-canvas.js"></script>
+<script src="../assets/js/shared/misc.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../assets/js/demo_1/dashboard.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="../../element-ui/lib/theme-chalk/index.css">
+<script src="../../js/axios-0.18.0.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        mounted() {
+            this.selectAll();
+            this.selectAllsingers();
+            // 从浏览器会话中获取用户信息
+            /*const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                this.user = JSON.parse(storedUser);
+            } else {
+                // 用户未登录，重定向到登录页面
+                window.location.href = './pages/samples/login.html';
+            }*/
+        },
+        methods: {
+            //查询分页数据
+            selectAll() {
+                // var _this = this;
+                // axios({
+                //     method: "get",
+                //     url: "http://localhost:8080/MusicWebV1_0_war/song/selectAA"
+                // }).then(function (resp) {
+                //     //设置表格数据
+                //     _this.tableData = resp.data;
+                // })
+
+                var _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/MusicWebV1_0_war/song/selectByPage?currentPage=" + this.currentPage + "&rows=" + this.pageSize,
+                    data: this.song
+                }).then(function (resp) {
+                    //设置表格数据
+                    _this.tableData = resp.data.rows;
+                    _this.totalCount = resp.data.totalCount;
+                })
+            },
+            selectAllsingers() {
+                var _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/MusicWebV1_0_war/singer/selectAllsingers"
+                }).then(function (resp) {
+                    //设置表格数据
+                    _this.singers = resp.data;
+                })
+
+            },
+            // 复选框选中后执行的方法
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+                //console.log(this.multipleSelection)
+            },
+
+            //分页
+            handleSizeChange(val) {
+                //console.log(`每页 ${val} 条`);
+                // 重新设置每页显示的条数
+                this.pageSize = val;
+                this.selectAll();
+            },
+            handleCurrentChange(val) {
+                //console.log(`当前页: ${val}`);
+                // 重新设置当前页码
+                this.currentPage = val;
+                this.selectAll();
+            },
+            //改变歌曲状态
+            changeSwitch(index, row) {
+                this.song.id = row.id;
+                //console.log(row.id);
+                //console.log(index + 1);
+                console.log( row.id)
+                console.log( row.status)
+                if ( row.status == 1) {
+                    this.song.status = 1;
+                } else {
+                    this.song.status = 2;
+                }
+                //2. 发送AJAX请求
+                var _this = this;
+                // 发送ajax请求，添加数据
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/MusicWebV1_0_war/song/updateSongStatus",
+                    data: _this.song
+                }).then(function (resp) {
+                    if (resp.data === "success") {
+                        //更新成功
+                        // 重新查询数据
+                        _this.selectAll();
+                        // 弹出消息提示
+                        _this.$message({
+                            message: '恭喜你，更新成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            // 查询方法
+            onSubmit() {
+                var _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/MusicWebV1_0_war/song/selectByPageAndCondition?currentPage=" + this.currentPage + "&rows=" + this.pageSize + "&status=" + this.searchCondition.searchStatus + "&singer=" + this.searchCondition.searchSinger + "&songName=" + this.searchCondition.searchSongName,
+
+                }).then(function (resp) {
+                    //设置表格数据
+                    _this.tableData = resp.data.rows;
+                    _this.totalCount = resp.data.totalCount;
+                })
+
+
+            },
+            //表单歌曲上传
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            addSong() {
+                console.log(this.song);
+                var _this = this;
+                // 发送ajax请求，添加数据
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/MusicWebV1_0_war/song/add",
+                    data: _this.song
+                }).then(function (resp) {
+                    if (resp.data === "success") {
+                        //添加成功
+                        //关闭窗口
+                        _this.dialogVisible = false;
+                        // 重新查询数据
+                        _this.selectAll();
+                        _this.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                    }
+                })
+
+
+            },
+            deleteByIds() {
+                console.log(this.multipleSelection);
+                this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //用户点击确认按钮
+                    //1. 创建id数组 [1,2,3], 从 this.multipleSelection 获取即可
+                    for (let i = 0; i < this.multipleSelection.length; i++) {
+                        let selectionElement = this.multipleSelection[i];
+                        this.selectedIds[i] = selectionElement.id;
+                    }
+                    //2. 发送AJAX请求
+                    var _this = this;
+                    // 发送ajax请求，添加数据
+                    axios({
+                        method: "post",
+                        url: "http://localhost:8080/MusicWebV1_0_war/song/deleteByids",
+                        data: _this.selectedIds
+                    }).then(function (resp) {
+                        if (resp.data === "delete by ids success") {
+                            //删除成功
+                            // 重新查询数据
+                            _this.selectAll();
+                            // 弹出消息提示
+                            _this.$message({
+                                message: '恭喜你，删除成功',
+                                type: 'success'
+                            });
+                        }
+                    })
+                }).catch(() => {
+                    //用户点击取消按钮
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //歌曲更新
+            handleEdit(index, row) {
+                // 将数据的index传递过来用于实现数据的回显
+                this.song = this.tableData[index];
+                this.currentIndex = index;
+                // 设置对话框的可见
+                this.dialogFormVisible = true;
+            },
+            //歌曲删除
+            handleDelete(index, row) {
+                // 设置类似于console类型的功能
+                this.$confirm("永久删除该文件, 是否继续?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                })
+                    .then(() => {
+                        // 移除对应索引位置的数据，可以对row进行设置向后台请求删除数据
+                        //this.tableData.splice(index, 1);
+                        //用户点击确认按钮
+                        //1. 创建id数组 [1,2,3], 从 this.multipleSelection 获取即可
+                        this.selectedIds[0] = row.id;
+                        //2. 发送AJAX请求
+                        var _this = this;
+                        // 发送ajax请求，添加数据
+                        axios({
+                            method: "post",
+                            url: "http://localhost:8080/MusicWebV1_0_war/song/deleteByids",
+                            data: _this.selectedIds
+                        }).then(function (resp) {
+                            if (resp.data === "delete by ids success") {
+                                //删除成功
+                                // 重新查询数据
+                                _this.selectAll();
+                                // 弹出消息提示
+                                _this.$message({
+                                    message: '恭喜你，删除成功',
+                                    type: 'success'
+                                });
+                            }
+                        })
+                    })
+                    .catch(() => {
+                        this.$message({
+                            type: "info",
+                            message: "已取消删除"
+                        });
+                    });
+            }
+
+        },
+        data() {
+            return {
+                user: {
+                    manager: 'test09',
+                    userFlag: '1'
+                },
+                // 每页显示的条数
+                pageSize: 5,
+                // 总记录数
+                totalCount: 100,
+                // 当前页码
+                currentPage: 1,
+                // 查询条件
+                searchCondition: {
+                    searchStatus: '1',
+                    searchSinger: '',
+                    searchSongName: ''
+                },
+                // 添加数据对话框是否展示的标记
+                dialogVisible: false,
+                // 被选中的id数组
+                selectedIds: [],
+                // 复选框选中数据集合
+                multipleSelection: [],
+                //歌曲模型：
+                song: {
+                    id: '',
+                    songName: '',
+                    singer: '',
+                    fileURL: '',
+                    hits: '',
+                    type: '',
+                    status: ''
+                },
+                singers: [{
+                    id: '001',
+                    singerName: '数据1'
+                }, {
+                    id: '002',
+                    singerName: '数据2'
+                }, {
+                    id: '003',
+                    singerName: '数据3'
+                }, {
+                    id: '004',
+                    singerName: '数据4'
+                }],
+                tableData: [{
+                    id: '1',
+                    songName: 'test',
+                    singer: 'me',
+                    fileURL: '1.mp3',
+                    hits: '99',
+                    type: '10',
+                    status: '1'
+                }, {
+                    id: '1',
+                    songName: 'test',
+                    singer: 'me',
+                    fileURL: '1.mp3',
+                    hits: '99',
+                    type: '10',
+                    status: '1'
+                }, {
+                    id: '1',
+                    songName: 'test',
+                    singer: 'me',
+                    fileURL: '1.mp3',
+                    hits: '99',
+                    type: '10',
+                    status: '1'
+                }]
+            }
+        }
+
+
+    })
+</script>
+<!-- End custom js for this page-->
+</body>
+</html>

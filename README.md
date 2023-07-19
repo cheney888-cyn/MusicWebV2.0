@@ -2,6 +2,16 @@
 
 设计题目: 甜橙音乐网
 
+作者：重庆大学2021级软件工程陈亦楠
+
+部分功能仍有不足，有待完善
+
+运行后 管理页：http://localhost:8080/MusicWebV1_0_war/beautify/demo_1/index2.html
+
+运行后 用户登陆页：http://localhost:8080/MusicWebV1_0_war/beautify/demo_1/pages/samples/login.html?#
+
+
+
 # 1  绪论
 
 随着互联网技术的迅速发展，音乐产业也迎来了巨大的变革。传统的音乐销售模式逐渐被数字音乐取代，越来越多的人开始通过互联网来获取和分享音乐。在这个背景下，我决定创建一个全新的音乐网站项目。
